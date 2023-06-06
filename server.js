@@ -13,9 +13,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("combined"));
 app.use(helmet());
-app.use("*", (req, res) => {
-  res.send("Please use proper route");
-});
 
 mongoose
   .connect(process.env.DATABASE_URI)
