@@ -1,7 +1,8 @@
 const User = require("../models/User");
 const { hashPassword } = require("../helpers/auth");
+const jwt = require("jsonwebtoken");
 
-exports.registerUser = async (req, res) => {
+exports.register = async (req, res) => {
   const { name, email, password, address, role } = req.body;
   try {
     if (!name.trim()) {
