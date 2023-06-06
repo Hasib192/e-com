@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const { hashPassword } = require("../helpers/auth");
+const { hashPassword, comparePassword } = require("../helpers/auth");
 const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
@@ -16,7 +16,7 @@ exports.register = async (req, res) => {
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.json({ error: "Email already taken" });
+      res.json({ error: "Email already taken" });
     }
     const hashedPassword = await hashPassword(password);
 
@@ -28,13 +28,51 @@ exports.register = async (req, res) => {
       role,
     }).save();
 
-    res.json({
-      message: "Data saved successful",
+    res.status(201).json({
+      message: "Registration successful",
       user: {
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
       },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    if (!email) {
+      res.json("Email is required");
+    }
+    if (!password || password < 6) {
+      res.json("Password is required");
+    }
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.json("User not found");
+    }
+
+    const matchPassword = await comparePassword(password, user.password);
+    if (!matchPassword) {
+      res.json("Invalid email or password");
+    }
+
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.status(200).json({
+      message: "Login Successful",
+      user: {
+        name: user.name,
+        email: user.email,
+        address: user.address,
+        role: user.role,
+      },
+      token,
     });
   } catch (error) {
     console.log(error);

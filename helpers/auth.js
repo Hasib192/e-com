@@ -12,3 +12,7 @@ exports.hashPassword = (password) => {
     });
   });
 };
+
+exports.comparePassword = (password, hash) => {
+  return bcrypt.compare(password, hash);
+};
