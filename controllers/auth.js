@@ -29,15 +29,18 @@ exports.register = async (req, res) => {
     }).save();
 
     res.status(201).json({
-      message: "Registration successful",
-      user: {
+      status: "Success",
+      data: {
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
       },
     });
   } catch (error) {
-    console.log(error);
+    res.status(200).json({
+      status: "Fail",
+      data: error,
+    });
   }
 };
 
@@ -65,7 +68,7 @@ exports.login = async (req, res) => {
     });
 
     res.status(200).json({
-      message: "Login Successful",
+      status: "Success",
       user: {
         name: user.name,
         email: user.email,
@@ -75,6 +78,9 @@ exports.login = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log(error);
+    res.status(200).json({
+      status: "Fail",
+      data: error,
+    });
   }
 };
