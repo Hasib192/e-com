@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { register, login } = require("../controllers/auth");
+const { register, login, updateProfile } = require("../controllers/auth");
 const { requireSignIn, isAdmin } = require("../middlewares/auth");
 
 router.post("/register", register);
@@ -11,5 +11,7 @@ router.get("/auth-check", requireSignIn, (req, res) => {
 router.get("/admin-check", requireSignIn, isAdmin, (req, res) => {
   res.json({ status: "Success" });
 });
+
+router.put("/update", requireSignIn, updateProfile);
 
 module.exports = router;

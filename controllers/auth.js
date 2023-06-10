@@ -3,8 +3,8 @@ const { hashPassword, comparePassword } = require("../helpers/auth");
 const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
-  const { name, email, password, address, role } = req.body;
   try {
+    const { name, email, password, address, role } = req.body;
     if (!name.trim()) {
       res.json({ error: "Name is required" });
     }
@@ -45,8 +45,8 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
     if (!email) {
       res.json("Email is required");
     }
@@ -82,5 +82,44 @@ exports.login = async (req, res) => {
       status: "Fail",
       data: error,
     });
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const { name, password, address } = req.body;
+
+    if (password && password < 6) {
+      return res.json("Password must be atleast 6 character long.");
+    }
+    const id = req.user._id;
+    const user = await User.findById(id);
+
+    // Set given new name
+    const updatedName = name ? name.trim() : user.name;
+
+    // Set given hashed password
+    const updatedHashedPassword = password ? await hashPassword(password) : user.password;
+
+    // Set give new address
+    const updatedAdress = address ? address.trim() : user.address;
+
+    const update = {
+      name: updatedName,
+      password: updatedHashedPassword,
+      address: updatedAdress,
+    };
+
+    const options = {
+      upsert: true,
+      new: true,
+      select: "-password",
+    };
+
+    const result = await User.findByIdAndUpdate(id, update, options);
+
+    res.status(200).json({ status: "Success", data: result });
+  } catch (error) {
+    res.status(200).json({ status: "Fail", data: error });
   }
 };
