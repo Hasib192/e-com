@@ -16,11 +16,10 @@ exports.isAdmin = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).exec();
     if (user.role !== 1) {
-      res.status(401).json({ status: "Unauthorized" });
+      res.status(401).send("Unauthorized");
     } else {
       next();
     }
-    next();
   } catch (error) {
     res.status(401).json({ status: "Unauthorized", data: "error" });
   }
