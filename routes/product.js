@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const formidable = require("express-formidable")();
 const { requireSignIn, isAdmin } = require("../middlewares/auth");
-
 const { create, list, read, photo, remove, update } = require("../controllers/product");
 
 router.post("/product", requireSignIn, isAdmin, formidable, create);

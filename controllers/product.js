@@ -1,7 +1,7 @@
 const fs = require("fs");
-const Product = require("../models/Product");
+const Product = require("../models/product");
 const slugify = require("slugify");
-const { findOne } = require("../models/User");
+const { findOne } = require("../models/user");
 
 exports.create = async (req, res) => {
   try {
