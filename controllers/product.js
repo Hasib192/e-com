@@ -201,7 +201,7 @@ exports.productSearch = async (req, res) => {
   }
 };
 
-exports.listProducts = async (req, res) => {
+exports.paginationProducts = async (req, res) => {
   try {
     const productPerPage = 5;
     const page = req.params.page ? req.params.page : 1;
