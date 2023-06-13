@@ -1,4 +1,5 @@
 const Category = require("../models/category");
+const Product = require("../models/product");
 const slugify = require("slugify");
 
 exports.list = async (req, res) => {
@@ -99,6 +100,32 @@ exports.remove = async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
     let result = await Category.findOneAndDelete(categoryId);
+    res.status(200).json({
+      status: "Success",
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(200).json({
+      status: "Fail",
+      data: error,
+    });
+  }
+};
+
+exports.productsByCategory = async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    const category = await Category.findOne({ slug });
+
+    if (!category) {
+      return res.status(200).json({
+        status: "Fail",
+        data: "Category not found",
+      });
+    }
+
+    const result = await Product.find({ category: category._id }).select("-photo");
     res.status(200).json({
       status: "Success",
       data: result,
