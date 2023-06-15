@@ -169,6 +169,27 @@ exports.update = async (req, res) => {
   }
 };
 
+exports.filterProducts = async (req, res) => {
+  try {
+    const { checked, radio } = req.body;
+    console.log(checked, radio);
+    const result = await Product.find({
+      "category.categorySlug": { $in: checked },
+      price: { $gte: radio[0], $lte: radio[1] },
+    }).select("-photo");
+    console.log(result);
+    res.status(200).json({
+      status: "Success",
+      data: result,
+    });
+  } catch (error) {
+    res.status(200).json({
+      status: "Fail",
+      data: error,
+    });
+  }
+};
+
 exports.productsCount = async (req, res) => {
   try {
     const result = await Product.estimatedDocumentCount();

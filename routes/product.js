@@ -9,6 +9,7 @@ router.get("/product/:slug", read);
 router.get("/product/photo/:productId", photo);
 router.delete("/product/:productId", requireSignIn, isAdmin, remove);
 router.put("/product/:productId", requireSignIn, isAdmin, formidable, update);
+router.post("/product/filtered-products", filterProducts);
 router.get("/product-count", productsCount);
 router.get("/list-product/:page", paginationProducts);
 router.get("/product/search/:productId", productSearch);
