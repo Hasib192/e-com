@@ -15,6 +15,6 @@ router.get("/admin-check", requireSignIn, isAdmin, (req, res) => {
 router.put("/update", requireSignIn, updateProfile);
 
 router.get("/orders", requireSignIn, getOrders);
-router.get("/all-orders", requireSignIn, allOrders);
+router.get("/all-orders", requireSignIn, isAdmin, allOrders);
 
 module.exports = router;
