@@ -2,7 +2,6 @@ const fs = require("fs");
 const Product = require("../models/product");
 const Category = require("../models/category");
 const slugify = require("slugify");
-const category = require("../models/category");
 
 exports.create = async (req, res) => {
   try {
@@ -162,27 +161,6 @@ exports.update = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(200).json({
-      status: "Fail",
-      data: error,
-    });
-  }
-};
-
-exports.filterProducts = async (req, res) => {
-  try {
-    const { checked, radio } = req.body;
-    console.log(checked, radio);
-    const result = await Product.find({
-      "category.categorySlug": { $in: checked },
-      price: { $gte: radio[0], $lte: radio[1] },
-    }).select("-photo");
-    console.log(result);
-    res.status(200).json({
-      status: "Success",
-      data: result,
-    });
-  } catch (error) {
     res.status(200).json({
       status: "Fail",
       data: error,
