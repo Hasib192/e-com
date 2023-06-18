@@ -1,0 +1,583 @@
+{
+	"info": {
+		"_postman_id": "eeb5743f-f566-4e69-8ef6-f817343025c9",
+		"name": "e-com",
+		"description": "Project Details: [GitHub Link](https://github.com/Hasib192/e-com)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "14618328"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Hasib Hosen\",\r\n    \"email\": \"hasib@hasib.com\",\r\n    \"password\": \"amrnamehasib\",\r\n    \"address\": \"Mirpur-13, Dhaka\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"hasib@hasib.com\",\r\n    \"password\": \"amarnamhasib\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Check Authetication",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{baseURL}}/auth-check"
+					},
+					"response": []
+				},
+				{
+					"name": "Check Admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{baseURL}}/admin-check"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hasibul Hossain Hasib\",\r\n    \"password\": \"amarnamhasib\",\r\n    \"address\": \"Dhaka, Bangladesh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/update"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Create a Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Sports\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/category"
+					},
+					"response": []
+				},
+				{
+					"name": "Read a Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/category/:slug",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"category",
+								":slug"
+							],
+							"variable": [
+								{
+									"key": "slug",
+									"value": "autem-error-minima"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Cat-2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/category/:categoryId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"category",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": "64866fef162e546630ef102f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/category/:categoryId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"category",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": "648670bd162e546630ef103a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/category"
+					},
+					"response": []
+				},
+				{
+					"name": "Products by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/products-by-category/vero-voluptates-qui"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create a Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{$randomProductName}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{{$randomLoremSentence}}",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "99",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "648b3617acf807e772fc6e08",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/Hasib/Downloads/cat-551554_640.jpg"
+								},
+								{
+									"key": "shipping",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{baseURL}}/product"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{$randomProductName}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{{$randomLoremWords}}",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "{{$randomInt}}",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "648625d9575037e7f95b8769",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "{{$randomInt}}",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/Hasib/Downloads/cat-551554_640.jpg"
+								},
+								{
+									"key": "shipping",
+									"value": "{{$randomBoolean}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/product/:productId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"product",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "6487270581ac7ab308b73bb4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/products"
+					},
+					"response": []
+				},
+				{
+					"name": "Read a product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/product/:slug",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"product",
+								":slug"
+							],
+							"variable": [
+								{
+									"key": "slug",
+									"value": "smartphone"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View photo of a product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/product/photo/:productId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"product",
+								"photo",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "648b36f7acf807e772fc6e20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/product/:productId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"product",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "6487270581ac7ab308b73bb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count Products Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/product-count"
+					},
+					"response": []
+				},
+				{
+					"name": "Search a Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/product/search/:productId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"product",
+								"search",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "648845ab787888a662a0a896"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product by Pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/list-products/:page",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"list-products",
+								":page"
+							],
+							"variable": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Related Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/related-products/:productId/:categoryId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"related-products",
+								":productId",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "6487bace07a994ada670a439"
+								},
+								{
+									"key": "categoryId",
+									"value": "6487b750f17efcfb1c2a64f2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://127.0.0.1:8000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
