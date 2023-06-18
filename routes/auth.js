@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { register, login, updateProfile } = require("../controllers/auth");
+const { register, login, updateProfile, getOrders, allOrders } = require("../controllers/auth");
 const { requireSignIn, isAdmin } = require("../middlewares/auth");
 
 router.post("/register", register);
@@ -13,5 +13,8 @@ router.get("/admin-check", requireSignIn, isAdmin, (req, res) => {
 });
 
 router.put("/update", requireSignIn, updateProfile);
+
+router.get("/orders", requireSignIn, getOrders);
+router.get("/all-orders", requireSignIn, allOrders);
 
 module.exports = router;

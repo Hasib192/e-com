@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const { hashPassword, comparePassword } = require("../helpers/auth");
 const jwt = require("jsonwebtoken");
+const Order = require("../models/order");
 
 exports.register = async (req, res) => {
   try {
@@ -120,6 +121,25 @@ exports.updateProfile = async (req, res) => {
 
     res.status(200).json({ status: "Success", data: result });
   } catch (error) {
+    res.status(200).json({ status: "Fail", data: error });
+  }
+};
+
+exports.getOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ buyer: req.user._id }).populate("products", "-photo").populate("buyer", "name");
+    res.status(200).json({ status: "Success", data: orders });
+  } catch (error) {
+    console.log(error);
+    res.status(200).json({ status: "Fail", data: error });
+  }
+};
+exports.allOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({}).populate("products", "-photo").populate("buyer", "name").sort({ createdAt: "-1" });
+    res.status(200).json({ status: "Success", data: orders });
+  } catch (error) {
+    console.log(error);
     res.status(200).json({ status: "Fail", data: error });
   }
 };
